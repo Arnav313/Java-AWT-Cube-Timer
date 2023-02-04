@@ -68,9 +68,10 @@ public class Statistics {
 	private void calculateStats(long time) {
 		for (int i = 0; i < 5; i++) {
 			sumN[i] = sumN[i] + time;
-			worstN[i] = time;
-			bestN[i] = time;
-			if (time < bestN[i]) {
+			if (count == 1) {
+				worstN[i] = time;
+				bestN[i] = time;
+			} else if (time < bestN[i]) {
 				bestN[i] = time;
 			} else if (time > worstN[i]) {
 				worstN[i] = time;
@@ -79,6 +80,7 @@ public class Statistics {
 				if (count > n[i]) {
 					long tempTime = ((Long) times.get(count - n[i] - 1)).longValue();
 					sumN[i] = sumN[i] - tempTime;
+
 					if (tempTime == bestN[i]) {
 						bestN[i] = findNewBest(times.subList(count - n[i], count));
 					} else if (tempTime == worstN[i]) {
